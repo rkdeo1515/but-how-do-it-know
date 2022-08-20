@@ -1,34 +1,3 @@
-/*
-CRC = x^8 + x^2 + x^1 + x^0
-
-def compute_crc8_atm(datagram, initial_value=0):
-    crc = initial_value
-    # Iterate bytes in data
-    for byte in datagram:
-        # Iterate bits in byte
-        for _ in range(0, 8):
-            if (crc >> 7) ^ (byte & 0x01):
-                crc = ((crc << 1) ^ 0x07) & 0xFF
-            else:
-                crc = (crc << 1) & 0xFF
-            # Shift to next bit
-            byte = byte >> 1
-    return crc
-      unsigned char crc = 0;
-  unsigned char data[LEN] = "ABC";
-  int i, j;
-  for (i = 0; i < LEN; i++) {
-    for (j = 0; j < 8; j++) {
-      if ((crc >> 7) ^ (data[i] & 0x1))
-        crc = ((crc << 1) ^ 0x07) & 0xFF;
-      else
-        crc = (crc << 1) & 0xFF;
-      data[i] = data[i] >> 1;
-    }
-  }
-
- */
-
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -42,7 +11,7 @@ void print_hex(unsigned char *b, int len);
 
 int main() {
   int i, j, k;
-  uint8_t data[4] = "a";
+  uint8_t data[4] = "ab";
   uint8_t enc[(4 + 1) * 8] = {
       0,
   };
