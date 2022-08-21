@@ -2,21 +2,22 @@
 #include <stdio.h>
 #include <string.h>
 
-// CRC_ATM = x^8 + x^2 + x^1 + x^0
+// CRC_ATM = x^8 + x^2 + x^1 + x^0 = 0x107 = 1 0000 0111
 
-#define LEN 6
+#define SIZE 100
 
 int main()
 {
-  int i, j, k;
-  uint8_t data[100] = "hello!";
+  uint8_t data[SIZE] = "hello!";
+  uint8_t len = strlen((const char *)data);
   uint8_t poly = 0x7;
-  uint8_t crc = 0;
-  uint8_t tmp = 0;
+
+  int i, j, k;
+  uint8_t crc, tmp;
 
   crc = *data;
 
-  for (i = 0; i < strlen((const char *)data); i++)
+  for (i = 0; i < len; i++)
   {
     tmp = data[i + 1];
     for (j = 0; j < 8; j++)
@@ -31,7 +32,8 @@ int main()
     }
     crc = tmp;
   }
-  printf("CRC:0x%X\n", crc);
+
+  printf("CRC(HEX):0x%X\n", crc);
 
   return 0;
 }

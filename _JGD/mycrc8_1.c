@@ -6,12 +6,10 @@
 
 #define LEN 6
 
-void print_bin(unsigned char *b, int len);
-void print_hex(unsigned char *b, int len);
-
-int main() {
+int main()
+{
   int i, j, k;
-  uint8_t data[4] = "ab";
+  uint8_t data[100] = "abcd";
   uint8_t enc[(4 + 1) * 8] = {
       0,
   };
@@ -19,13 +17,8 @@ int main() {
 
   printf("data: %s (len=%d)\n", data, strlen(data));
 
-  // for (i = 0; i < strlen(data); i++) {
-  //   // printf("i=%d/%d ", i, strlen(data));
-  //   print_bin(&data[i], 1);
-  // }
-  // putchar('\n');
-
-  for (i = 0; i < strlen(data) * 8; i += 8) {
+  for (i = 0; i < strlen(data) * 8; i += 8)
+  {
     enc[i + 7] = (data[i / 8] >> 0) & 0x1;
     enc[i + 6] = (data[i / 8] >> 1) & 0x1;
     enc[i + 5] = (data[i / 8] >> 2) & 0x1;
@@ -37,31 +30,38 @@ int main() {
   }
 
   printf("data_binary: ");
-  for (int i = 0; i < strlen(data) * 8; i++) {
-    if ((i % 8 + (i == 0)) == 0) printf(" ");
+  for (int i = 0; i < strlen(data) * 8; i++)
+  {
+    if ((i % 8 + (i == 0)) == 0)
+      printf(" ");
     printf("%d", enc[i]);
   }
   putchar('\n');
 
-  for (int i = 0; i < strlen(data) * 8; i++) {
-    if (enc[i] == 1) {
-      for (int j = 0; j < 9; j++) {
+  for (int i = 0; i < strlen(data) * 8; i++)
+  {
+    if (enc[i] == 1)
+    {
+      for (int j = 0; j < 9; j++)
+      {
         enc[i + j] = enc[i + j] ^ div[j];
       }
     }
   }
+
   printf("CRC8: ");
-  for (int i = 0; i < 8; i++) {
-    if ((i % 8 + (i == 0)) == 0) printf(" ");
+  for (int i = 0; i < 8; i++)
+  {
+    if ((i % 8 + (i == 0)) == 0)
+      printf(" ");
     printf("%d", enc[strlen(data) * 8 + i]);
   }
-  putchar('\n');
 
-  printf("\nEND\n");
   return 0;
 }
 
-void print_bin(unsigned char *b, int len) {
+void print_bin(unsigned char *b, int len)
+{
   int i, j;
   for (i = 0; i < len; i++)
     for (j = 0; j < 8; j++)
@@ -71,9 +71,11 @@ void print_bin(unsigned char *b, int len) {
   //        ((j + 1) % 4 == 0) ? ' ' : '\0');
 }
 
-void print_hex(unsigned char *b, int len) {
+void print_hex(unsigned char *b, int len)
+{
   int i, j;
-  for (i = 0; i < len; i++) printf("%h ", b[len - (i + 1)]);
+  for (i = 0; i < len; i++)
+    printf("%h ", b[len - (i + 1)]);
 }
 
 /*
