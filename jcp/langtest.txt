@@ -1,3 +1,0 @@
-if r1 != r2
-	#code
-endif
